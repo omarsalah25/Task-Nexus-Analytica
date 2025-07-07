@@ -7,7 +7,7 @@ This is the frontend application for Nexus Analytica, a React + TypeScript proje
 
 - Search movies by title.
 - View detailed movie information.
-- Responsive design with dark and light mode support using Ant Design.
+- Responsive design.
 - Animated UI components with Framer Motion.
 - Routing handled by React Router DOM.
 - Environment variable support for API key management.
