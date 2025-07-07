@@ -1,15 +1,79 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Nexus Analytica Frontend
 
-Currently, two official plugins are available:
+This is the frontend application for Nexus Analytica, a React + TypeScript project built with Vite. The application consumes the OMDb API to display movie information.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- Search movies by title.
+- View detailed movie information.
+- Responsive design with dark and light mode support using Ant Design.
+- Animated UI components with Framer Motion.
+- Routing handled by React Router DOM.
+- Environment variable support for API key management.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Setup and Installation
+
+### Prerequisites
+
+- Node.js (v16 or later recommended)
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone https://your-repository-url.git
+cd your-repository-folder
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+# or
+yarn install
+```
+
+3. Create a `.env` file in the root of your project with the following content:
+
+```env
+VITE_OMDB_API_KEY=77144624
+```
+
+This key is used to access the OMDb API.
+
+4. Start the development server:
+
+```bash
+npm run dev
+# or
+yarn dev
+```
+
+The app will be available at `http://localhost:5173` (or the port shown in your terminal).
+
+## Scripts
+
+- `dev`: Starts the development server with hot module replacement.
+- `build`: Builds the app for production.
+- `preview`: Previews the production build locally.
+- `lint`: Runs ESLint checks.
+
+## Technologies Used
+
+- React 18
+- TypeScript
+- Vite
+- React Router DOM
+- Ant Design
+- Framer Motion
+- ESLint with TypeScript and React plugins
+
+## ESLint Configuration
+
+The project uses advanced ESLint rules for TypeScript and React to ensure code quality:
 
 ```js
 export default tseslint.config([
@@ -17,44 +81,32 @@ export default tseslint.config([
   {
     files: ['**/*.{ts,tsx}'],
     extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
       ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
       ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
       ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
     ],
     languageOptions: {
       parserOptions: {
         project: ['./tsconfig.node.json', './tsconfig.app.json'],
         tsconfigRootDir: import.meta.dirname,
       },
-      // other options...
     },
   },
-])
+]);
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+You can optionally add React-specific lint rules using:
 
 ```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+import reactX from 'eslint-plugin-react-x';
+import reactDom from 'eslint-plugin-react-dom';
 
 export default tseslint.config([
   globalIgnores(['dist']),
   {
     files: ['**/*.{ts,tsx}'],
     extends: [
-      // Other configs...
-      // Enable lint rules for React
       reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
       reactDom.configs.recommended,
     ],
     languageOptions: {
@@ -62,8 +114,25 @@ export default tseslint.config([
         project: ['./tsconfig.node.json', './tsconfig.app.json'],
         tsconfigRootDir: import.meta.dirname,
       },
-      // other options...
     },
   },
-])
+]);
 ```
+
+## Environment Variables
+
+The app expects the following environment variable in `.env`:
+
+```
+VITE_OMDB_API_KEY=your_api_key_here
+```
+
+Replace `your_api_key_here` with your actual OMDb API key.
+
+## License
+
+MIT License
+
+---
+
+Made with ❤️ for Nexus Analytica.
