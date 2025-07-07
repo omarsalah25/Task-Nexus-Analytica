@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getMovieDetails } from "../api/omdb";
 import type { Movie } from "../types/movie";
 import Loader from "../components/Loader";
-import { Button, Tag } from "antd";
+import { Button, Tag, Alert } from "antd";
 import { motion } from "framer-motion";
 
 const MovieDetail = () => {
@@ -11,15 +11,22 @@ const MovieDetail = () => {
   const navigate = useNavigate();
   const [movie, setMovie] = useState<Movie>();
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchMovie = async () => {
       setLoading(true);
+      setError(null); 
       try {
         const data = await getMovieDetails(id!);
-        setMovie(data);
-      } catch (error) {
-        console.error(error);
+        if (data?.Response === "False") {
+          setError(data.Error || "Movie not found.");
+        } else {
+          setMovie(data);
+        }
+      } catch (err) {
+        console.error(err);
+        setError("Failed to fetch movie details. Please try again.");
       } finally {
         setLoading(false);
       }
@@ -29,6 +36,19 @@ const MovieDetail = () => {
   }, [id]);
 
   if (loading) return <Loader />;
+  if (error)
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Alert
+          message="Error"
+          description={error}
+          type="error"
+          showIcon
+          className="max-w-md mx-auto"
+        />
+      </div>
+    );
+
   if (!movie) return <p>Movie not found.</p>;
 
   return (
